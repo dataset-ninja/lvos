@@ -21,18 +21,15 @@ HIDE_DATASET = True  # set False when 100% sure about repo quality
 # * After uploading to instance ##
 ##################################
 LICENSE: License = License.CC_BY_4_0()
-APPLICATIONS: List[Union[Industry, Domain, Research]] = [
-    Industry.Energy(),
-    Domain.VehicleDetection(),
-]
-CATEGORY: Category = Category.EnergyAndUtilities()
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.General()]
+CATEGORY: Category = Category.General()
 
 CV_TASKS: List[CVTask] = [CVTask.InstanceSegmentation()]
 ANNOTATION_TYPES: List[AnnotationType] = [AnnotationType.InstanceSegmentation()]
 
-RELEASE_DATE: Optional[str] = None  # e.g. "YYYY-MM-DD"
+RELEASE_DATE: Optional[str] = "18-08-2023"  # e.g. "YYYY-MM-DD"
 if RELEASE_DATE is None:
-    RELEASE_YEAR: int = 2023
+    RELEASE_YEAR: int = None
 
 HOMEPAGE_URL: str = "https://lingyihongfd.github.io/lvos.github.io/dataset.html"
 # e.g. "https://some.com/dataset/homepage"
@@ -58,7 +55,9 @@ CLASS2COLOR: Optional[Dict[str, List[str]]] = None
 # Use dict key to specify name for a button
 PAPER: Optional[Union[str, List[str], Dict[str, str]]] = "https://arxiv.org/abs/2211.10181v1"
 BLOGPOST: Optional[Union[str, List[str], Dict[str, str]]] = None
-REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = None
+REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = (
+    "https://github.com/LingyiHongfd/LVOS-api"
+)
 
 CITATION_URL: Optional[str] = "https://lingyihongfd.github.io/lvos.github.io/dataset.html"
 AUTHORS: Optional[List[str]] = [
@@ -70,7 +69,7 @@ AUTHORS: Optional[List[str]] = [
     "Zhaoyu Chen",
     "Wenqiang Zhang",
 ]
-AUTHORS_CONTACTS: Optional[List[str]] = None
+AUTHORS_CONTACTS: Optional[List[str]] = ["honglyhly@gmail.com"]
 
 ORGANIZATION_NAME: Optional[Union[str, List[str]]] = (
     "School of Computer Science, Fudan University, Shanghai, China"
