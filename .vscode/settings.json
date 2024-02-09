@@ -14,7 +14,7 @@
         "editor.formatOnPaste": false,
         "editor.formatOnType": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
+            "source.organizeImports": "explicit"
         },
     },
     "python.formatting.provider": "none",
@@ -22,10 +22,10 @@
     "editor.formatOnPaste": false,
     "editor.formatOnType": true,
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "isort.args": [
         "--profile",
