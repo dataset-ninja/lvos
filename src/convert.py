@@ -338,14 +338,6 @@ import tqdm
 
 #     return obj_class_list
 
-oc_dict = {
-    1: sly.ObjClass("1", sly.Bitmap, [0, 255, 0]),
-    2: sly.ObjClass("2", sly.Bitmap, [255, 0, 0]),
-    3: sly.ObjClass("3", sly.Bitmap, [255, 255, 0]),
-    4: sly.ObjClass("4", sly.Bitmap, [0, 0, 255]),
-    5: sly.ObjClass("5", sly.Bitmap, [255, 0, 128]),
-}
-
 
 def separate_masks(mask_path):
     mask = cv2.imread(mask_path)
@@ -400,18 +392,21 @@ def create_ann(img_path, tag_values, obj_count):
     labels = []
     if os.path.exists(ann_path):
         if obj_count > 1:
-            objects = [oc_dict.get((oc + 1)) for oc in range(obj_count)]
+            tags = [sly.Tag(id_tag_meta, (oc + 1)) for oc in range(obj_count)]
             masks = separate_masks(ann_path)
-            for i, (mask, obj) in enumerate(zip(masks, objects)):
+            for i, (mask, tag) in enumerate(zip(masks, tags)):
                 if np.unique(mask).size == 2:
                     caption_tag = sly.Tag(caption_tag_meta, captions[i])
-                    label = sly.Label(geometry=sly.Bitmap(mask), obj_class=obj, tags=[caption_tag])
+                    label = sly.Label(
+                        geometry=sly.Bitmap(mask), obj_class=obj_class, tags=[tag, caption_tag]
+                    )
                     labels.append(label)
         else:
             mask = convert_mask_to_binary(ann_path)
             if np.unique(mask).size == 2:
                 caption_tag = sly.Tag(caption_tag_meta, captions[0])
-                label = sly.Label(sly.Bitmap(mask), oc_dict.get(1), tags=[caption_tag])
+                id_tag = sly.Tag(id_tag_meta, 1)
+                label = sly.Label(sly.Bitmap(mask), obj_class, tags=[id_tag, caption_tag])
                 labels.append(label)
     return sly.Annotation((height, width), labels, [split_tag])
 
@@ -454,8 +449,12 @@ def count_objects(json_path):
 
 
 dataset_path = "/mnt/c/users/german/documents/videodataset"
+
 subds_tag_meta = sly.TagMeta("split", sly.TagValueType.ANY_STRING)
 caption_tag_meta = sly.TagMeta("caption", sly.TagValueType.ANY_STRING)
+id_tag_meta = sly.TagMeta("id", sly.TagValueType.ANY_NUMBER)
+
+obj_class = sly.ObjClass("object", sly.Bitmap, [0, 255, 0])
 
 
 def convert_and_upload_supervisely_project(
@@ -464,15 +463,14 @@ def convert_and_upload_supervisely_project(
 
     dataset_names = {"test": "test", "train": "train", "val": "valid"}
 
-    obj_classes = [obj for obj in oc_dict.values()]
-
     meta = sly.ProjectMeta(
-        obj_classes=obj_classes, tag_metas=[subds_tag_meta, caption_tag_meta]
+        obj_classes=[obj_class], tag_metas=[subds_tag_meta, caption_tag_meta, id_tag_meta]
     ).to_json()
     project = api.project.create(workspace_id, project_name)
     api.project.update_meta(project.id, meta)
 
     for ds_name, ds_path in dataset_names.items():
+        dataset = api.dataset.create(project.id, ds_name)
         subfolders = [
             f.path
             for f in os.scandir(os.path.join(dataset_path, ds_path, "JPEGImages"))
@@ -485,16 +483,16 @@ def convert_and_upload_supervisely_project(
         pbar = tqdm.tqdm(total=len(subfolders), desc=f"Processing {ds_name} dataset...")
         for subfolder in subfolders:
             subfolder_name = os.path.basename(subfolder)
-            dataset = api.dataset.create(project.id, subfolder_name)
             img_paths = glob(os.path.join(subfolder, "*.jpg"))
             # progress = sly.Progress("Create dataset: {}".format(subfolder_name), len(img_paths))
             for img_paths_batch in sly.batched(img_paths):
                 img_names_batch = [
-                    sly.fs.get_file_name_with_ext(img_path) for img_path in img_paths_batch
+                    (subfolder_name + "_" + sly.fs.get_file_name_with_ext(img_path))
+                    for img_path in img_paths_batch
                 ]
                 img_infos = api.image.upload_paths(dataset.id, img_names_batch, img_paths_batch)
                 img_ids = [img_info.id for img_info in img_infos]
-                tag_values = (ds_name, captions.get(subfolder_name))
+                tag_values = (subfolder_name, captions.get(subfolder_name))
                 anns = [
                     create_ann(img_path, tag_values, count_dict.get(subfolder_name))
                     for img_path in img_paths_batch
