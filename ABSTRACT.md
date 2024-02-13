@@ -40,8 +40,11 @@ To assess annotation quality, the authors randomly select 100 videos from the HQ
 ## Attributes 
 
 <i>**Disclaimer:** The entirety of the following data is sourced directly from the original paper and regrettably lacks representation in the dataset metadata. </i>
+<p align="center">
+<img src="https://github.com/dataset-ninja/lvos/assets/115161827/484e0c63-b5e4-4052-89a4-0d7eefda8c5d" width=500/>
+</p>
 
-<img src="https://github.com/dataset-ninja/lvos/assets/115161827/484e0c63-b5e4-4052-89a4-0d7eefda8c5d" width=400/>
+<span style="font-size: smaller; font-style: italic;"> Table 2 provides definitions for video attributes in LVOS, extending and modifying the previously defined short-term video challenges (top). This extension includes a complementary set of long-term video attributes (bottom). </span>
 
 For a thorough and extensive analysis of Video Object Segmentation (VOS) approaches, it is crucial to identify video attributes. Each sequence is labeled with 13 challenges, as outlined in the provided table. These attributes encompass challenges specific to short-term videos, derived from DAVIS, and are augmented with an additional set tailored for long-term videos. Notably, these attributes are not mutually exclusive, allowing for the presence of multiple challenges within a single video. In LVOS, common challenges include Scale Variation (SV), Occlusion (OCC), Low Resolution (LR), and Fast Motion (FM). A notable distinction is observed in challenges between short-term and long-term videos, attributed to the extended length of the latter, resulting in more complex and varied object motion and background changes not readily apparent in short-term videos. The variation in attribute distribution imposes distinct and heightened requirements on the design of VOS models.
 
