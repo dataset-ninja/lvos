@@ -34,7 +34,7 @@ if RELEASE_DATE is None:
 HOMEPAGE_URL: str = "https://lingyihongfd.github.io/lvos.github.io/dataset.html"
 # e.g. "https://some.com/dataset/homepage"
 
-PREVIEW_IMAGE_ID: int = 13618141
+PREVIEW_IMAGE_ID: int = 13969549
 # This should be filled AFTER uploading images to instance, just ID of any image.
 
 GITHUB_URL: str = "https://github.com/dataset-ninja/lvos"
@@ -71,9 +71,7 @@ AUTHORS: Optional[List[str]] = [
 ]
 AUTHORS_CONTACTS: Optional[List[str]] = ["honglyhly@gmail.com"]
 
-ORGANIZATION_NAME: Optional[Union[str, List[str]]] = (
-    "School of Computer Science, Fudan University, Shanghai, China"
-)
+ORGANIZATION_NAME: Optional[Union[str, List[str]]] = "Fudan University, China"
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = None
 
 # Set '__PRETEXT__' or '__POSTTEXT__' as a key with string value to add custom text. e.g. SLYTAGSPLIT = {'__POSTTEXT__':'some text}
