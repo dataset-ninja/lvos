@@ -450,7 +450,7 @@ def count_objects(json_path):
 
 dataset_path = "/mnt/c/users/german/documents/videodataset"
 
-subds_tag_meta = sly.TagMeta("split", sly.TagValueType.ANY_STRING)
+subds_tag_meta = sly.TagMeta("sequence", sly.TagValueType.ANY_STRING)
 caption_tag_meta = sly.TagMeta("caption", sly.TagValueType.ANY_STRING)
 id_tag_meta = sly.TagMeta("id", sly.TagValueType.ANY_NUMBER)
 

@@ -24,7 +24,12 @@ LICENSE: License = License.CC_BY_4_0()
 APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.General()]
 CATEGORY: Category = Category.General()
 
-CV_TASKS: List[CVTask] = [CVTask.InstanceSegmentation()]
+CV_TASKS: List[CVTask] = [
+    CVTask.InstanceSegmentation(),
+    CVTask.SemanticSegmentation(),
+    CVTask.ObjectDetection(),
+    CVTask.Identification(),
+]
 ANNOTATION_TYPES: List[AnnotationType] = [AnnotationType.InstanceSegmentation()]
 
 RELEASE_DATE: Optional[str] = "2023-08-18"  # e.g. "YYYY-MM-DD"
@@ -55,9 +60,9 @@ CLASS2COLOR: Optional[Dict[str, List[str]]] = None
 # Use dict key to specify name for a button
 PAPER: Optional[Union[str, List[str], Dict[str, str]]] = "https://arxiv.org/abs/2211.10181v1"
 BLOGPOST: Optional[Union[str, List[str], Dict[str, str]]] = None
-REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = (
-    "https://github.com/LingyiHongfd/LVOS-api"
-)
+REPOSITORY: Optional[Union[str, List[str], Dict[str, str]]] = {
+    "GitHub": "https://github.com/LingyiHongfd/LVOS-api"
+}
 
 CITATION_URL: Optional[str] = "https://lingyihongfd.github.io/lvos.github.io/dataset.html"
 AUTHORS: Optional[List[str]] = [
