@@ -1,10 +1,11 @@
-<img src="https://github.com/dataset-ninja/lvos/assets/115161827/9f875681-3bba-459e-a678-e55529caa832" alt="image" />
 
 The authors introduce the **LVOS** benchmark dataset, comprising 220 videos totaling 421 minutes, representing the first densely annotated long-term Video Object Segmentation (VOS) dataset. The videos within LVOS have an average duration of 1.59 minutes, with each frame meticulously and manually annotated through a semi-automatic annotation pipeline, addressing potential errors in tracking, segmentation, and prediction. 
 
 <i>**Disclaimer:** Dataset is made of 220 sequences, meant to be played as 6-fps videos, but is presented as individual annotated frames. Additionaly, each object instance is presented with an id tag, and a caption tag. </i>
 
 To ensure dataset quality, the authors meticulously select 220 videos from an initial pool of 600 720P-resolution candidate videos, maintaining a balance between video quality and representation. The resulting dataset encompasses 126,280 frames and 156,432 annotations, surpassing the combined size of other datasets. For training, validation, and testing purposes, the videos are partitioned into subsets while preserving distribution and video length characteristics, with 120 videos designated for training, 50 for validation, and 50 for testing. Annotations for training and validation sets are publicly available, fostering the development of VOS methods, while those for the testing set remain private for competition purposes.
+
+<img src="https://github.com/dataset-ninja/lvos/assets/115161827/9f875681-3bba-459e-a678-e55529caa832" alt="image" />
 
 ## Dataset Design
 
@@ -23,7 +24,7 @@ The fatigue induced by the mask annotation process significantly curtails the sc
 
 <img src="https://github.com/dataset-ninja/lvos/assets/115161827/33d8eb05-0e2e-41bc-b877-2a889d20991c" alt="image" />
 
-<span style="font-size: smaller; font-style: italic;">Figure 2: Annotation Pipeline, comprising four sequential steps. Step 1: 1 FPS Automatic Segmentation, where instance segmentation and tracking models are employed to automatically obtain the mask of the target object at 1 FPS. In Step 2, 1 FPS Manual Correction is performed, refining the masks obtained in Step 1 through manual adjustments. Step 3, Mask Propagation from 1 FPS to 6 FPS, involves extending the masks from 1 FPS to 6 FPS using a Video Object Segmentation (VOS) model. Finally, Step 4 entails 6 FPS Manual Correction, where the masks obtained in Step 3 are manually corrected.</span>
+<span style="font-size: smaller; font-style: italic;">Annotation Pipeline, comprising four sequential steps. Step 1: 1 FPS Automatic Segmentation, where instance segmentation and tracking models are employed to automatically obtain the mask of the target object at 1 FPS. In Step 2, 1 FPS Manual Correction is performed, refining the masks obtained in Step 1 through manual adjustments. Step 3, Mask Propagation from 1 FPS to 6 FPS, involves extending the masks from 1 FPS to 6 FPS using a Video Object Segmentation (VOS) model. Finally, Step 4 entails 6 FPS Manual Correction, where the masks obtained in Step 3 are manually corrected.</span>
 
 **Step 1: 1 FPS Automatic Segmentation.** Initially, the authors employ transfiner to produce pixel-wise segmentation for each object in the frames at a rate of 1 frame per second (FPS). Subsequently, the bounding boxes of the target objects are manually marked when they first appear, and MixFormer is utilized to propagate the box from the initial frame to all subsequent frames. By integrating information from pixel-wise segmentation and bounding boxes in each frame, the masks of the target objects are obtained at a rate of 1 FPS.
 
@@ -40,12 +41,30 @@ To assess annotation quality, the authors randomly select 100 videos from the HQ
 ## Attributes 
 
 <i>**Disclaimer:** The entirety of the following data is sourced directly from the original paper and regrettably lacks representation in the dataset metadata. </i>
-<p align="center">
-<img src="https://github.com/dataset-ninja/lvos/assets/115161827/484e0c63-b5e4-4052-89a4-0d7eefda8c5d" width=500/>
-</p>
 
-<span style="font-size: smaller; font-style: italic;"> Table 2 provides definitions for video attributes in LVOS, extending and modifying the previously defined short-term video challenges (top). This extension includes a complementary set of long-term video attributes (bottom). </span>
+| Attribute       | Definition                                                             |
+|-----------------|------------------------------------------------------------------------|
+| BC              | Background Clutter. The appearances of background and target object are similar. |
+| DEF             | Deformation. Target appearance deforms complexly.                     |
+| MB              | Motion Blur. Boundaries of target object are blurred due to camera or object fast motion. |
+| FM              | Fast Motion. The per-frame motion of the target is larger than 20 pixels, computed as the centroid's Euclidean distance. |
+| LR              | Low Resolution. The average ratio between the target box area and the image area is smaller than 0.1. |
+| OCC             | Occlusion. The target is partially or fully occluded in the video.     |
+| OV              | Out-of-view. The target leaves the video frame completely.             |
+| SV              | Scale Variation. The ratio of any pair of bounding boxes is outside the range [0.5, 2.0]. |
+| DB              | Dynamic Background. Background regions undergo deformation.           |
+| SC              | Shape Complexity. Boundaries of the target object are complex.         |
+| AC              | Appearance Change. Significant appearance change due to rotations and illumination changes. |
+| ---             | ---                                                                    |
+| LRA             | Long-term Reappearance. Target object reappears after disappearing for at least 100 frames. |
+| CTC             | Cross-temporal Confusion. There are multiple different objects that are similar to the target object but do not appear at the same time
+
+
+
+
+<span style="font-size: smaller; font-style: italic;"> The table provides definitions for video attributes in LVOS, extending and modifying the previously defined short-term video challenges (top). This extension includes a complementary set of long-term video attributes (bottom). </span>
 
 For a thorough and extensive analysis of Video Object Segmentation (VOS) approaches, it is crucial to identify video attributes. Each sequence is labeled with 13 challenges, as outlined in the provided table. These attributes encompass challenges specific to short-term videos, derived from DAVIS, and are augmented with an additional set tailored for long-term videos. Notably, these attributes are not mutually exclusive, allowing for the presence of multiple challenges within a single video. In LVOS, common challenges include Scale Variation (SV), Occlusion (OCC), Low Resolution (LR), and Fast Motion (FM). A notable distinction is observed in challenges between short-term and long-term videos, attributed to the extended length of the latter, resulting in more complex and varied object motion and background changes not readily apparent in short-term videos. The variation in attribute distribution imposes distinct and heightened requirements on the design of VOS models.
 
 
+<img width="1302" alt="image" src="https://github.com/dataset-ninja/lvos/assets/115161827/b04962ed-3ed2-4294-b23b-adbc0eeb4c11">
