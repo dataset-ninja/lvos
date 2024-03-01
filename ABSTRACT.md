@@ -1,11 +1,12 @@
 
-The authors introduce the **LVOS** benchmark dataset, comprising 220 videos totaling 421 minutes, representing the first densely annotated long-term Video Object Segmentation (VOS) dataset. The videos within LVOS have an average duration of 1.59 minutes, with each frame meticulously and manually annotated through a semi-automatic annotation pipeline, addressing potential errors in tracking, segmentation, and prediction. 
+The authors introduce the **LVOS: Long-Term Video Object Segmentation** benchmark dataset, comprising 220 videos totaling 421 minutes, representing the first densely annotated long-term video object segmentation (VOS) dataset. The videos within LVOS have an average duration of 1.59 minutes, with each frame meticulously and manually annotated through a semi-automatic annotation pipeline, addressing potential errors in tracking, segmentation, and prediction. 
 
 <i>**Disclaimer:** Dataset is made of 220 sequences, meant to be played as 6-fps videos, but is presented as individual annotated frames. Additionaly, each object instance is presented with an id tag, and a caption tag. </i>
 
 To ensure dataset quality, the authors meticulously select 220 videos from an initial pool of 600 720P-resolution candidate videos, maintaining a balance between video quality and representation. The resulting dataset encompasses 126,280 frames and 156,432 annotations, surpassing the combined size of other datasets. For training, validation, and testing purposes, the videos are partitioned into subsets while preserving distribution and video length characteristics, with 120 videos designated for training, 50 for validation, and 50 for testing. Annotations for training and validation sets are publicly available, fostering the development of VOS methods, while those for the testing set remain private for competition purposes.
 
 <img src="https://github.com/dataset-ninja/lvos/assets/115161827/9f875681-3bba-459e-a678-e55529caa832" alt="image" />
+<span style="font-size: smaller; font-style: italic;">Example sequences of our Long-term Video Object Segmentation (LVOS)</span>
 
 ## Dataset Design
 
@@ -66,5 +67,6 @@ To assess annotation quality, the authors randomly select 100 videos from the HQ
 
 For a thorough and extensive analysis of Video Object Segmentation (VOS) approaches, it is crucial to identify video attributes. Each sequence is labeled with 13 challenges, as outlined in the provided table. These attributes encompass challenges specific to short-term videos, derived from DAVIS, and are augmented with an additional set tailored for long-term videos. Notably, these attributes are not mutually exclusive, allowing for the presence of multiple challenges within a single video. In LVOS, common challenges include Scale Variation (SV), Occlusion (OCC), Low Resolution (LR), and Fast Motion (FM). A notable distinction is observed in challenges between short-term and long-term videos, attributed to the extended length of the latter, resulting in more complex and varied object motion and background changes not readily apparent in short-term videos. The variation in attribute distribution imposes distinct and heightened requirements on the design of VOS models.
 
-
-<img width="1302" alt="image" src="https://github.com/dataset-ninja/lvos/assets/115161827/b04962ed-3ed2-4294-b23b-adbc0eeb4c11">
+| Attributes distribution of each sequence in LVOS | Main mutual dependencies among attributes | Distribution comparison with DAVIS 2017 |
+|:--------------:|:------------------:|:-----------------:|
+| <img  src="https://github.com/dataset-ninja/lvos/assets/115161827/e5818309-233a-4ceb-ac95-5532a2db0152">           | <img src="https://github.com/dataset-ninja/lvos/assets/115161827/17bf5e0e-ac97-44c4-9678-3d9399179f6c">           | <img src="https://github.com/dataset-ninja/lvos/assets/115161827/16aa5982-87f5-43bc-84b9-41fb3ce67517">      |

@@ -14,7 +14,7 @@ from dataset_tools.templates import (
 # * Before uploading to instance #
 ##################################
 PROJECT_NAME: str = "LVOS"
-PROJECT_NAME_FULL: str = "LVOS: Long-term Video Object Segmentation"
+PROJECT_NAME_FULL: str = "LVOS: Long-Term Video Object Segmentation"
 HIDE_DATASET = True  # set False when 100% sure about repo quality
 
 ##################################
@@ -80,7 +80,9 @@ ORGANIZATION_NAME: Optional[Union[str, List[str]]] = "Fudan University, China"
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = None
 
 # Set '__PRETEXT__' or '__POSTTEXT__' as a key with string value to add custom text. e.g. SLYTAGSPLIT = {'__POSTTEXT__':'some text}
-SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = None
+SLYTAGSPLIT: Optional[Dict[str, Union[List[str], str]]] = {
+    "__POSTTEXT__": "*sequence* tag defines the split for each video sequence, and is applied to every image. *id* and *caption* tags are assigned to every label on an image"
+}
 TAGS: Optional[List[str]] = None
 
 
