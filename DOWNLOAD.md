@@ -1,6 +1,6 @@
 Dataset **LVOS** can be downloaded in [Supervisely format](https://developer.supervisely.com/api-references/supervisely-annotation-json-format):
 
- [Download](https://www.dropbox.com/scl/fi/pp46djkyy2wie6ud31z94/lvos-DatasetNinja.tar?rlkey=cibn64tl7jalv0f0ihz4gvecn&dl=1)
+ [Download](https://assets.supervisely.com/remote/eyJsaW5rIjogImZzOi8vYXNzZXRzLzM1MDdfTFZPUy9sdm9zLURhdGFzZXROaW5qYS50YXIiLCAic2lnIjogIlEwenVRTmFtb1JmL2oyQ0lta2p4M0U3c25aTWd3L1VXRE9TMXgvUWZzcnc9In0=)
 
 As an alternative, it can be downloaded with *dataset-tools* package:
 ``` bash
